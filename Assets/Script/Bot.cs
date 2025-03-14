@@ -1,29 +1,38 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Bot : MonoBehaviour
 {
-    public GameObject bulletPrefab;    // กระสุนที่ยิงออกมา
-    public Transform firePoint;        // ตำแหน่งยิง
-    public float bulletSpeed = 10f;    // ความเร็วกระสุน
-    public float shootInterval = 0.5f; // เวลาระหว่างการยิง (0.5 วินาที)
+    public float speed = 3f;
+    public float visionDistance = 10f;
+    public Transform player;
 
-    void Start()
+    void Update()
     {
-        // เรียกฟังก์ชัน Shoot ซ้ำ ๆ ทุก 0.5 วินาที
-        InvokeRepeating("Shoot", 0f, shootInterval);
+        // คำนวณระยะห่างระหว่างบอทกับผู้เล่น
+        float distance = Vector3.Distance(transform.position, player.position);
+
+        // ตรวจสอบว่าผู้เล่นอยู่ในระยะการมองเห็นหรือไม่
+        if (distance <= visionDistance)
+        {
+            // วิ่งตามผู้เล่น
+            Vector3 direction = (player.position - transform.position).normalized;
+            transform.position += direction * speed * Time.deltaTime;
+            transform.LookAt(player); // หมุนบอทให้หันหน้าหาผู้เล่น
+        }
     }
 
-    void Shoot()
+    void OnTriggerEnter(Collider other)
     {
-        // สร้างกระสุนที่ตำแหน่งยิง
-        GameObject bullet = Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
-        Rigidbody rb = bullet.GetComponent<Rigidbody>();
-
-        if (rb != null)
+        if (other.CompareTag("Player"))
         {
-            rb.velocity = firePoint.forward * bulletSpeed;
+            Debug.Log("Player Caught! Restarting...");
+            RestartGame();
         }
+    }
 
-        Debug.Log("Bot ยิงกระสุน!");
+    void RestartGame()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name); // เริ่มด่านใหม่
     }
 }
