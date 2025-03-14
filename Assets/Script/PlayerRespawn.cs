@@ -12,8 +12,9 @@ public class PlayerRespawn : MonoBehaviour
 
     public void Respawn()
     {
+        // ย้ายผู้เล่นกลับไปยังจุดเช็คพอยต์ล่าสุด
         transform.position = lastCheckpointPosition;
-        Debug.Log("Respawn at: " + lastCheckpointPosition);
+        Debug.Log("Player respawned at: " + lastCheckpointPosition);
     }
 
     private void Update()
