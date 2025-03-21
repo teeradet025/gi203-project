@@ -41,6 +41,13 @@ public class Player2 : MonoBehaviour
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
             isGrounded = false;
         }
+
+        // เช็คว่าตกแมพหรือไม่ (ถ้าแกน Y น้อยกว่า -10)
+        if (transform.position.y < -10)
+        {
+            Debug.Log("Player fell off the map! Restarting...");
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        }
     }
 
     void OnCollisionEnter(Collision collision)
