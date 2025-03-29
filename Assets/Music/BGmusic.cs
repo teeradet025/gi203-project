@@ -11,7 +11,10 @@ public class BGmusic : MonoBehaviour
         {
             instance = this;
             DontDestroyOnLoad(this.gameObject);
+        
         }
     }
+
+   
 
 }
