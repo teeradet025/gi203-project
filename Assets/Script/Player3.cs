@@ -11,23 +11,23 @@ public class Player3 : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        rb.freezeRotation = true; // »éÍ§¡Ñ¹¡ÒÃËÁØ¹·ÕèäÁèµéÍ§¡ÒÃ
+        rb.freezeRotation = true; // ï¿½ï¿½Í§ï¿½Ñ¹ï¿½ï¿½ï¿½ï¿½ï¿½Ø¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í§ï¿½ï¿½ï¿½
     }
 
     [System.Obsolete]
     void FixedUpdate()
     {
-        // ÃÑº¤èÒ¡ÒÃà¤Å×èÍ¹·Õè¨Ò¡»ØèÁ WASD
+        // ï¿½Ñºï¿½ï¿½Ò¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¹ï¿½ï¿½ï¿½Ò¡ï¿½ï¿½ï¿½ï¿½ WASD
         float moveX = Input.GetAxis("Horizontal");
         float moveZ = Input.GetAxis("Vertical");
 
-        // ÊÃéÒ§àÇ¡àµÍÃì·ÔÈ·Ò§¡ÒÃà¤Å×èÍ¹·Õè
+        // ï¿½ï¿½ï¿½Ò§ï¿½Ç¡ï¿½ï¿½ï¿½ï¿½ï¿½È·Ò§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¹ï¿½ï¿½ï¿½
         Vector3 movement = new Vector3(moveX, 0, moveZ).normalized * speed;
 
-        // ãªé velocity à¾×èÍà¤Å×èÍ¹·Õè
-        rb.velocity = new Vector3(movement.x, rb.velocity.y, movement.z);
+        // ï¿½ï¿½ velocity ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¹ï¿½ï¿½ï¿½
+        rb.linearVelocity = new Vector3(movement.x, rb.linearVelocity.y, movement.z);
 
-        // ¶éÒÁÕ¡ÒÃà¤Å×èÍ¹·ÕèãËéËÁØ¹µÑÇÅÐ¤ÃµÒÁ·ÔÈ·Ò§
+        // ï¿½ï¿½ï¿½ï¿½Õ¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¹ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ø¹ï¿½ï¿½ï¿½ï¿½Ð¤Ãµï¿½ï¿½ï¿½ï¿½È·Ò§
         if (movement.magnitude > 0.1f)
         {
             transform.rotation = Quaternion.LookRotation(new Vector3(movement.x, 0, movement.z));
@@ -36,14 +36,14 @@ public class Player3 : MonoBehaviour
 
     void Update()
     {
-        // ¡ÃÐâ´´
+        // ï¿½ï¿½ï¿½â´´
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
         {
-            rb.velocity = new Vector3(rb.velocity.x, jumpForce, rb.velocity.z);
+            rb.linearVelocity = new Vector3(rb.linearVelocity.x, jumpForce, rb.linearVelocity.z);
             isGrounded = false;
         }
 
-        // àªç¤ÇèÒµ¡áÁ¾ËÃ×ÍäÁè (¶éÒá¡¹ Y ¹éÍÂ¡ÇèÒ -10)
+        // ï¿½ï¿½ï¿½ï¿½Òµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ (ï¿½ï¿½ï¿½á¡¹ Y ï¿½ï¿½ï¿½Â¡ï¿½ï¿½ï¿½ -10)
         if (transform.position.y < -10)
         {
             Debug.Log("Player fell off the map! Restarting...");
@@ -58,7 +58,7 @@ public class Player3 : MonoBehaviour
             isGrounded = true;
         }
 
-        // ÃÕà«çµ©Ò¡àÁ×èÍª¹ºÍ·
+        // ï¿½ï¿½ï¿½çµ©Ò¡ï¿½ï¿½ï¿½ï¿½Íªï¿½ï¿½Í·
         if (collision.gameObject.CompareTag("Bot"))
         {
             Debug.Log("Hit by Bot! Restarting...");
