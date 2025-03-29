@@ -3,7 +3,7 @@ using UnityEngine.AI;
 
 public class SnowZone : MonoBehaviour
 {
-    public float slideForce = 5f; // ¡ÓË¹´áÃ§Å×è¹
+    public float slideForce = 5f; // ï¿½ï¿½Ë¹ï¿½ï¿½Ã§ï¿½ï¿½ï¿½
 
     private Rigidbody rb;
 
@@ -14,9 +14,9 @@ public class SnowZone : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (rb.velocity.magnitude > 0.1f) // àªç¤ÇèÒ¡ÓÅÑ§à¤Å×èÍ¹·Õè
+        if (rb.linearVelocity.magnitude > 0.1f) // ï¿½ï¿½ï¿½ï¿½Ò¡ï¿½ï¿½Ñ§ï¿½ï¿½ï¿½ï¿½Í¹ï¿½ï¿½ï¿½
         {
-            Vector3 slide = rb.velocity.normalized * slideForce;
+            Vector3 slide = rb.linearVelocity.normalized * slideForce;
             rb.AddForce(slide, ForceMode.Acceleration);
         }
     }
